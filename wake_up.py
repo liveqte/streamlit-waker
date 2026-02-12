@@ -7,22 +7,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
+urls_str = os.environ.get("APP_URLS", "")
+
+# 去除首尾空白，按行分割，并过滤掉空行
 URL_LIST = [
-    "https://purchasepred.streamlit.app/",
-    "https://empsalarypred.streamlit.app/",
-    "https://housingpricepred.streamlit.app/",
-    "https://examscorepred.streamlit.app/",
-    "https://empchurnpred.streamlit.app/",
-    "https://socialmediaaffectpred.streamlit.app/",
-    "https://servanttipspred.streamlit.app/",
-    "https://secondscarspricepred.streamlit.app/",
-    "https://crimedatacatapred.streamlit.app/",
-    "https://clothessizepredlogistic.streamlit.app/",
-    "https://clothessizepreddecesion.streamlit.app/",
-    "https://clothessizepredrandom.streamlit.app/",
-    "https://coffeenamepred.streamlit.app/",
-    "https://clothespricepred.streamlit.app/",
-    "https://medicalcostpred.streamlit.app/"
+    url.strip()
+    for url in urls_str.splitlines()
+    if url.strip()  # 跳过空行
 ]
 # ==========================================
 
@@ -158,6 +149,7 @@ def run_all_checks_sequentially():
 
 if __name__ == "__main__":
     run_all_checks_sequentially()
+
 
 
 
