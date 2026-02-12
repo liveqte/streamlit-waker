@@ -2,11 +2,9 @@ name: Hourly Streamlit Wake Up
 
 on:
   schedule:
-    # Run at minute 0 of every hour (e.g., 1:00, 2:00, 3:00...)
-    - cron: '0 * * * *'
-  
-  # Allows you to click the button manually to test it immediately
+    - cron: '0 */8 * * *'   # 每8小时，推荐
   workflow_dispatch:
+
 
 jobs:
   check-apps:
@@ -27,6 +25,11 @@ jobs:
       - name: Install Libraries
         run: |
           pip install -r requirements.txt
-
+          
+      - name: Export all secrets to env vars
+        uses: oNaiPs/secrets-to-env-action@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+          
       - name: Run Wake Up Script
         run: python wake_up.py
